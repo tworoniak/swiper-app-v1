@@ -3,8 +3,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
-  /* prevent page-level overscroll weirdness */
   overscroll-behavior: none;
 }
 
@@ -22,9 +20,74 @@
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+  padding: 0 16px 96px; /* space for fixed bottom nav */
 
-  padding: 0 16px 96px;
-
-  /* Allow vertical scrolling; we'll detect horizontal swipes */
+  /* Allows vertical scrolling; we interpret horizontal swipes */
   touch-action: pan-y;
+}
+
+.slide {
+  will-change: transform, opacity;
+}
+
+/* Directional enter animations */
+.enterFromRight {
+  animation: enterFromRight 220ms ease-out;
+}
+.enterFromLeft {
+  animation: enterFromLeft 220ms ease-out;
+}
+
+@keyframes enterFromRight {
+  from {
+    transform: translateX(12px);
+    opacity: 0.001;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes enterFromLeft {
+  from {
+    transform: translateX(-12px);
+    opacity: 0.001;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Edge “bump” feedback */
+.bumpLeft {
+  animation: bumpLeft 170ms ease-out;
+}
+.bumpRight {
+  animation: bumpRight 170ms ease-out;
+}
+
+@keyframes bumpLeft {
+  0% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes bumpRight {
+  0% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
