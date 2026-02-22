@@ -9,14 +9,27 @@ type SwipeHandlers = {
 };
 
 type Options = {
-  thresholdPx?: number; // how far to swipe to trigger
+  thresholdPx?: number; // base swipe distance to trigger
   restraintPx?: number; // max vertical movement allowed
+  canSwipeLeft?: boolean; // left = go next
+  canSwipeRight?: boolean; // right = go prev
+  edgeResistance?: number; // multiplier at edges (e.g. 1.8)
+  onEdgeLeft?: () => void; // called when user swipes left at edge
+  onEdgeRight?: () => void; // called when user swipes right at edge
 };
 
 export function useSwipeNavigation(
   onSwipeLeft: () => void,
   onSwipeRight: () => void,
-  { thresholdPx = 50, restraintPx = 60 }: Options = {},
+  {
+    thresholdPx = 55,
+    restraintPx = 70,
+    canSwipeLeft = true,
+    canSwipeRight = true,
+    edgeResistance = 1.8,
+    onEdgeLeft,
+    onEdgeRight,
+  }: Options = {},
 ): SwipeHandlers {
   const startX = useRef<number | null>(null);
   const startY = useRef<number | null>(null);
@@ -29,14 +42,10 @@ export function useSwipeNavigation(
   };
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
-    // Only track primary touch/pen/mouse
     if (!e.isPrimary) return;
-
     tracking.current = true;
     startX.current = e.clientX;
     startY.current = e.clientY;
-
-    // Capture so we keep getting events even if finger drifts
     (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
   }, []);
 
@@ -47,11 +56,10 @@ export function useSwipeNavigation(
     const dx = e.clientX - startX.current;
     const dy = e.clientY - startY.current;
 
-    // If user is primarily scrolling vertically, don't interfere
+    // Prefer vertical scroll if that's the dominant gesture
     if (Math.abs(dy) > Math.abs(dx)) return;
 
-    // Prevent horizontal scroll/gesture from fighting the browser
-    // (doesn't stop vertical scrolling because we early-return above)
+    // Once it’s clearly horizontal, stop browser from fighting it
     if (Math.abs(dx) > 8) e.preventDefault?.();
   }, []);
 
@@ -63,18 +71,42 @@ export function useSwipeNavigation(
       const dx = e.clientX - startX.current;
       const dy = e.clientY - startY.current;
 
-      // too much vertical movement -> treat as scroll, not swipe
+      // Too vertical -> treat as scroll
       if (Math.abs(dy) > restraintPx) {
         reset();
         return;
       }
 
-      if (dx <= -thresholdPx) onSwipeLeft();
-      else if (dx >= thresholdPx) onSwipeRight();
+      const wantsLeft = dx <= -thresholdPx;
+      const wantsRight = dx >= thresholdPx;
+
+      if (wantsLeft) {
+        const required = canSwipeLeft
+          ? thresholdPx
+          : thresholdPx * edgeResistance;
+        if (dx <= -required && canSwipeLeft) onSwipeLeft();
+        else if (!canSwipeLeft) onEdgeLeft?.();
+      } else if (wantsRight) {
+        const required = canSwipeRight
+          ? thresholdPx
+          : thresholdPx * edgeResistance;
+        if (dx >= required && canSwipeRight) onSwipeRight();
+        else if (!canSwipeRight) onEdgeRight?.();
+      }
 
       reset();
     },
-    [onSwipeLeft, onSwipeRight, thresholdPx, restraintPx],
+    [
+      onSwipeLeft,
+      onSwipeRight,
+      thresholdPx,
+      restraintPx,
+      canSwipeLeft,
+      canSwipeRight,
+      edgeResistance,
+      onEdgeLeft,
+      onEdgeRight,
+    ],
   );
 
   const onPointerCancel = useCallback(() => reset(), []);
