@@ -1,0 +1,27 @@
+/* src/components/AppShell/AppShell.module.scss */
+.shell {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #0b0b0c; /* swap to your theme */
+  color: #f4f4f5;
+}
+
+.content {
+  flex: 1;
+  overflow: hidden; /* IMPORTANT: content scroll happens inside SlideViewport */
+}
+
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /* safe-area for iOS */
+  padding-bottom: env(safe-area-inset-bottom);
+
+  background: rgba(15, 15, 18, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
