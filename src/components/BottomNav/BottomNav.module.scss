@@ -20,6 +20,7 @@
   place-items: center;
 
   font-size: 1.3rem;
+  font-weight: 700;
   letter-spacing: 0.2px;
   text-transform: uppercase;
 
@@ -31,7 +32,7 @@
 }
 
 .active {
-  background: var(--color-primary);
+  background: var(--oxford-navy);
   color: var(--color-text);
 }
 
