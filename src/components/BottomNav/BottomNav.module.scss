@@ -4,17 +4,17 @@
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   gap: 4px;
-  padding: 8px 8px 8px;
+  //   padding: 8px 8px 8px;
 }
 
 .tab {
   appearance: none;
   border: 0;
   background: transparent;
-  color: rgba(244, 244, 245, 0.75);
+  color: var(--color-text);
 
   min-height: 48px; /* touch target */
-  border-radius: 12px;
+  //   border-radius: 12px;
 
   display: grid;
   place-items: center;
@@ -30,8 +30,8 @@
 }
 
 .active {
-  background: rgba(255, 255, 255, 0.08);
-  color: #f4f4f5;
+  background: var(--color-primary);
+  color: var(--color-text);
 }
 
 .label {
