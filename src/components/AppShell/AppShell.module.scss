@@ -3,8 +3,8 @@
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: #0b0b0c; /* swap to your theme */
-  color: #f4f4f5;
+  background: var(--color-bg); /* swap to your theme */
+  color: var(--color-text);
 }
 
 .content {
@@ -21,7 +21,7 @@
   /* safe-area for iOS */
   padding-bottom: env(safe-area-inset-bottom);
 
-  background: rgba(15, 15, 18, 0.96);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
   backdrop-filter: blur(10px);
 }
