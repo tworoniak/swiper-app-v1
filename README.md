@@ -1,8 +1,6 @@
-# React + TypeScript + Vite + Sass
+# 📱 SwipeNav – Mobile-First Gesture-Driven React App
 
-# 📱 Swipe Info App
-
-A mobile-first informational web application built with React + TypeScript + Vite + Sass, featuring:
+A mobile-first informational web application built with React + TypeScript + Vite + Sass, featuring a custom-built swipe carousel system with native-feeling gesture behavior.
 
 - 👆 Native-feeling horizontal swipe navigation
 - 🧭 Fixed bottom tab navigation
@@ -11,9 +9,15 @@ A mobile-first informational web application built with React + TypeScript + Vit
 - 📱 Touch-optimized UX
 - 💾 Local tab state persistence
 
-Designed for kiosks, touchscreen devices, mobile-first content apps, and interactive info displays.
+Designed as a demonstration of advanced touch UX patterns, gesture handling, layout architecture, and mobile-first interaction design.
 
---
+---
+
+## 🚀 Live Demo
+
+https://swiper-app-v1.vercel.app
+
+---
 
 ## ✨ Features
 
@@ -39,7 +43,7 @@ Designed for kiosks, touchscreen devices, mobile-first content apps, and interac
 - Prevents page-level bounce conflicts
 - Uses touch-action: pan-y for correct gesture behavior
 
---
+---
 
 ## 🛠 Tech Stack
 
@@ -49,7 +53,7 @@ Designed for kiosks, touchscreen devices, mobile-first content apps, and interac
 - 🎨 Sass (SCSS Modules)
 - 🧠 Custom swipe carousel hook (Pointer Events API)
 
---
+---
 
 ## 🧠 Architecture Overview
 
@@ -62,7 +66,7 @@ AppShell
  └── BottomNav (fixed)
 ```
 
---
+---
 
 ## 📂 Project Structure
 
@@ -95,7 +99,7 @@ src/
   main.tsx
 ```
 
---
+---
 
 ## 🧩 Adding a New Slide
 
