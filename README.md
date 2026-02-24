@@ -78,11 +78,17 @@ src/
 
   components/
     AppShell/
+      AppShell.module.scss
+      AppShell.tsx
     BottomNav/
+      BottomNav.module.scss
+      BottomNav.tsx
     SlideViewport/
+      SlideViewport.module.scss
+      SlideViewport.tsx
 
   hooks/
-    useSwipeCarousel3.ts
+    useSwipeNavigation.ts
 
   slides/
     Home.tsx
@@ -92,8 +98,17 @@ src/
 
   styles/
     abstracts/
+      _index.scss
+      _mixins.scss
+      _variables.scss
     base/
+      _base.scss
+      _index.scss
+      _reset.scss
+      _typography.scss
     theme/
+      _index.scss
+      _theme.scss
     main.scss
 
   main.tsx
