@@ -1,73 +1,110 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + Sass
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 📱 Swipe Info App
 
-Currently, two official plugins are available:
+A mobile-first informational web application built with React + TypeScript + Vite + Sass, featuring:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 👆 Native-feeling horizontal swipe navigation
+- 🧭 Fixed bottom tab navigation
+- 🧩 3-panel carousel (prev / current / next)
+- 🔄 Optional wrap-around navigation
+- 📱 Touch-optimized UX
+- 💾 Local tab state persistence
 
-## React Compiler
+Designed for kiosks, touchscreen devices, mobile-first content apps, and interactive info displays.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+--
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# 🖐 Swipe-Driven Navigation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Panels follow the user’s finger in real time
+- Velocity + distance snap detection
+- Rubber-band resistance at edges
+- Smooth snap-back animation
+- Optional wrap-around support
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# 🧭 Fixed Bottom Navigation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Persistent tab bar
+- Touch-friendly tap targets (48px+)
+- iOS safe-area support
+- Scrollable content remains independent
+
+# 📐 Mobile-First Layout
+
+- 100dvh viewport shell
+- Internal scroll containers
+- Prevents page-level bounce conflicts
+- Uses touch-action: pan-y for correct gesture behavior
+
+--
+
+## 🛠 Tech Stack
+
+- ⚛ React 18+
+- 🟦 TypeScript
+- ⚡ Vite
+- 🎨 Sass (SCSS Modules)
+- 🧠 Custom swipe carousel hook (Pointer Events API)
+
+--
+
+## 🧠 Architecture Overview
+
+```code
+AppShell
+ ├── SlideViewport (3-panel track)
+ │     ├── Prev Panel
+ │     ├── Current Panel
+ │     └── Next Panel
+ └── BottomNav (fixed)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+--
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📂 Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```code
+src/
+  app/
+    App.tsx
+    slides.tsx
+
+  components/
+    AppShell/
+    BottomNav/
+    SlideViewport/
+
+  hooks/
+    useSwipeCarousel3.ts
+
+  slides/
+    Home.tsx
+    Info.tsx
+    FAQ.tsx
+    Contact.tsx
+
+  styles/
+    abstracts/
+    base/
+    theme/
+    main.scss
+
+  main.tsx
+```
+
+--
+
+## 🧩 Adding a New Slide
+
+Add to slides.tsx:
+
+```TypeScript
+{
+  id: "about",
+  label: "About",
+  element: <About />
+}
 ```
